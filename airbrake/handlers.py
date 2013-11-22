@@ -78,9 +78,10 @@ class AirbrakeHandler(logging.Handler):
             for key, value in request.REQUEST.items():
                 SubElement(params, 'var', dict(key=key)).text = str(value)
 
-            session = SubElement(request_xml, 'session')
-            for key, value in request.session.items():
-                SubElement(session, 'var', dict(key=key)).text = str(value)
+            if 'session' in request_xml:
+                session = SubElement(request_xml, 'session')
+                for key, value in request.session.items():
+                    SubElement(session, 'var', dict(key=key)).text = str(value)
 
             cgi_data = SubElement(request_xml, 'cgi-data')
             for key, value in os.environ.items():
