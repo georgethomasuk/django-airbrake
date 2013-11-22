@@ -78,7 +78,7 @@ class AirbrakeHandler(logging.Handler):
             for key, value in request.REQUEST.items():
                 SubElement(params, 'var', dict(key=key)).text = str(value)
 
-            if 'session' in request_xml:
+            if 'session' in request:
                 session = SubElement(request_xml, 'session')
                 for key, value in request.session.items():
                     SubElement(session, 'var', dict(key=key)).text = str(value)
